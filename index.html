@@ -22,8 +22,8 @@
 li {
 
   padding: 10px;
-  padding-left:40px;
-  padding-right: 40px;
+  padding-left:60px;
+  padding-right: 60px;
 
 }
 
@@ -68,35 +68,58 @@ margin-right: 25px;
 
 <br><br>
 
-<ul>
+<!-- <ul>
 <li><button id = "choiceA" class = "btn btn-primary btn-lg btn-block" value = "" ><h1></h1></button></li>
 <li><button id = "choiceB" class = "btn btn-primary btn-lg btn-block" value = "" ><h1></h1></button></li>
 <li><button id = "choiceC" class = "btn btn-primary btn-lg btn-block" value = "" ><h1></h1></button></li>
 <li><button id = "choiceD" class = "btn btn-primary btn-lg btn-block" value = "" ><h1></h1></button></li>
-</ul>
+</ul> -->
 
 
 
 <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 <script type="text/javascript">
 
-// $(document).ready(function(){
-//   for(q = 0; q < 11; q++) {
-//     $('body').append('<div id="questX'+ q +'" class="questDiv text-center" />');
-//     // $('body').append('<div id="choiceA'+ q +'" class="answersDiv" />');
-//     // $('body').append('<div id="choiceB'+ q +'" class="answersDiv" />');
-//     // $('body').append('<div id="choiceC'+ q +'" class="answersDiv" />');
-//     // $('body').append('<div id="choiceD'+ q +'" class="answersDiv" />');
-//   }
+$(document).ready(function(){
+  for(q = 0; q < 11; q++) {
+    $('body').append('<div id="questX'+ q +'" class="questDiv text-center" />');
+    // $('body').append('<div id="choiceA'+ q +'" class="answersDiv" />');
+    // $('body').append('<div id="choiceB'+ q +'" class="answersDiv" />');
+    // $('body').append('<div id="choiceC'+ q +'" class="answersDiv" />');
+    // $('body').append('<div id="choiceD'+ q +'" class="answersDiv" />');
+  }
 
-// });
+});
+
+$(function (){
     	
 var queryURL = "https://opentdb.com/api.php?amount=10&type=multiple"
 
+var $trivA = $("#questX0");
+
     $.ajax({
       url: queryURL,
-      method: "GET"
-    }).done(function(response) {
+      method: "GET",
+      success: function(trivA) {
+    $.each(trivA, function(i, order) {
+    	$trivA.empty();
+    	$trivA.html(trivA.results[0].question);
+        $trivA.append('<li><input type="radio" name="q0" value="' + trivA.results[0].correct_answer + '">' + trivA.results[0].correct_answer + '</li>');
+        $trivA.append('<li><input type="radio" name="q0" value="' + trivA.results[0].correct_answer + '">' + trivA.results[0].incorrect_answers[0] + '</li>');
+        $trivA.append('<li><input type="radio" name="q0" value="' + trivA.results[0].correct_answer + '">' + trivA.results[0].incorrect_answers[1] + '</li>');
+        $trivA.append('<li><input type="radio" name="q0" value="' + trivA.results[0].correct_answer + '">' + trivA.results[0].incorrect_answers[2] + '</li>');
+        $trivA.wrapInner("<ul></ul>")
+        });
+      }
+    });
+  });
+    	
+// var queryURL = "https://opentdb.com/api.php?amount=10&type=multiple"
+
+//     $.ajax({
+//       url: queryURL,
+//       method: "GET"
+//     }).done(function(response) {
 
 // var qList = $("questDiv");
 // for(var w=0; w<qList.length - 1; w++)
@@ -120,19 +143,19 @@ var queryURL = "https://opentdb.com/api.php?amount=10&type=multiple"
 
     // });
 
-    	var inputQ = $("#questions")
-    	var inputA = $("#choiceA")
-    	var inputB = $("#choiceB")
-    	var inputC = $("#choiceC")
-    	var inputD = $("#choiceD")
+    // 	var inputQ = $("#questions")
+    // 	var inputA = $("#choiceA")
+    // 	var inputB = $("#choiceB")
+    // 	var inputC = $("#choiceC")
+    // 	var inputD = $("#choiceD")
 
-    	inputQ.html(response.results[0].question)
-    	inputA.html(response.results[0].correct_answer)
-    	inputB.html(response.results[0].incorrect_answers[0])
-    	inputC.html(response.results[0].incorrect_answers[1])
-    	inputD.html(response.results[0].incorrect_answers[2])
+    // 	inputQ.html(response.results[0].question)
+    // 	inputA.html(response.results[0].correct_answer)
+    // 	inputB.html(response.results[0].incorrect_answers[0])
+    // 	inputC.html(response.results[0].incorrect_answers[1])
+    // 	inputD.html(response.results[0].incorrect_answers[2])
 
-    });
+    // });
 
 var ul = document.querySelector('ul');
 for (var i = ul.children.length; i >= 0; i--) {
